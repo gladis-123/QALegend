@@ -21,13 +21,13 @@ public class LoginPageTest extends BaseClass
 	public void user_login_with_validcredentials() throws IOException
 	{
 		String username=ExcelUtilityQ.get_String_Data(0, 0, Constants.LOGINPAGE);
-		String password=ExcelUtilityQ.get_Integer_Data(0, 1, "LoginTest");
-		String expected_rlt=ExcelUtilityQ.get_String_Data(1, 0, "LoginTest");
+		String password=ExcelUtilityQ.get_Integer_Data(0, 1, Constants.LOGINPAGE);
+		String expected_rlt=ExcelUtilityQ.get_String_Data(1, 0, Constants.LOGINPAGE);
 		LoginPage login=new LoginPage (driver);
 		login.enter_Username(username);
-		login.enter_password(password);
-		HomePage homepage=login.click_on_loginButton();
-		String actual_result=homepage.getmessage_text();
+		login.enter_Password(password);
+		HomePage homepage=login.click_onLogin_Button();
+		String actual_result=homepage.get_MessageDisplay();
 		Assert.assertEquals(actual_result, expected_rlt,Messages.LOGINFAILED);
 		
 		
@@ -35,16 +35,17 @@ public class LoginPageTest extends BaseClass
 		
 	}
 	@Test(dataProvider="InvlaidUserCredentials",dataProviderClass=DataProviders.class)
-	public void verify_errormsg_whileLogIn_with_InvalidCredentials(String username1,String password1) throws IOException
+	public void verify_errormsg_whileLogIn_with_InvalidCredentials(String username1,String password1) 
 	{
-		LoginPage login new=LoginPage(driver);
+		LoginPage login=new LoginPage(driver);
 		login.enter_Username(username1);
-		login.enter_password(password1);
-		login.click_on_loginButton();
-		String actualr=login.get_DisplayMessage();
-String Expected_rsilt=ExcelUtilityQ.get_String_Data(1, 1, "LoginTest");
+		 login.enter_Password(password1);
+	     login.login_button_click();
+	     String actual_result=login.get_DisplayMessage();
+		 String expected_result=ExcelUtilityQ.get_String_Data(1,1 , Constants.LOGINPAGE);
+		Assert.assertEquals(actual_result, expected_result, Messages.INVALIDCREDENTIAL);
 		
-		Assert.assertEquals(actualr,Expected_rsilt ,"VALIDCREDENTIALS");
+	
 	}
 }	
 				

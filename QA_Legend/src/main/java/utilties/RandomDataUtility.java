@@ -2,27 +2,20 @@ package utilties;
 
 import com.github.javafaker.Faker;
 
-public class RandomDataUtility {
+public class RandomDataUtility 
 
-	
-	public static Faker faker;
-	public static String get_Firstname() {
-
-	
-	{
-	
-		 
-		 faker= new Faker(); 
-		 String firstname=faker.name().firstName();
-		 return firstname;
-	}
-		 }
-	 public static String get_Lastname()
+{
+	 public static Faker faker;
+	 public static String get_FirstName()
+	 {
+		faker=new Faker();
+		String first_name=faker.name().firstName();
+		return first_name;
+	 }
+	 public static String get_LastName()
 	 {
 		 faker=new Faker();
-		 String lastname=faker.name().lastName();
-		 return lastname;
-		 
-	}
-
+		 String last_name=faker.name().lastName();
+		 return last_name; 
+	 }
 }

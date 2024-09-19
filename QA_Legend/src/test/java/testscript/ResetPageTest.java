@@ -8,41 +8,59 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automationcore.BaseClass;
+import constants.Constants;
+import constants.Messages;
+import pageobject.HomePage;
+import pageobject.LoginPage;
+import pageobject.ResetPage;
 import utilties.ExcelUtilityQ;
 
 public class ResetPageTest extends BaseClass
 {
 	@Test
-	public void verify_error_msg_withinvalidemail() throws IOException 
+	public void verify_error_msg_with_validemail() 
 	{
 		
+		String email_id=ExcelUtilityQ.get_String_Data(0, 0, Constants.VALIDRESETPAGE);
+		 LoginPage login=new LoginPage(driver);
+		 ResetPage reset=login.Click_Onforgot_password();
+		 reset.enter_emailId(email_id);
+		 reset.click_onReset_Button();
+		 String expected_result=ExcelUtilityQ.get_String_Data(1, 0, Constants.VALIDRESETPAGE);
+		 String actual_result=reset.get_SuccessMessage_Display();
+		 Assert.assertEquals(actual_result,expected_result,Messages.RESETPASS );
+	}
 	
-String email=ExcelUtilityQ.get_String_Data(0, 0, "Reset");
-WebElement forgot_password=driver.findElement(By.xpath("//a[@class='btn btn-link']"));
+//WebElement success_msg=driver.findElement(By.xpath("//div[@class='alert alert-success']"));
+//String actual_msg=success_msg.getText();
+//String expected_result="We have e-mailed your password reset link!";
+//Assert.assertEquals(actual_msg, expected_result,"invalid msg");
+
+	
+
+/*WebElement forgot_password=driver.findElement(By.xpath("//a[@class='btn btn-link']"));
 forgot_password.click();
 WebElement email_fld=driver.findElement(By.xpath("//input[@id='email']"));
 email_fld.sendKeys(email);
  
  WebElement send_password=driver.findElement(By.xpath("//button[@type='submit']"));
- send_password.click();
+ send_password.click();*/
  
-	}
 	@Test
- public void verify_error_msg_withvalidemail() throws IOException
+ public void verify_error_msg_with_invalidemail()  
  {
-	 String email1=ExcelUtilityQ.get_String_Data(0, 0, "Reset1");
-	 WebElement forgot_password=driver.findElement(By.xpath("//a[@class='btn btn-link']"));
-	 forgot_password.click();
-	 WebElement email_fld=driver.findElement(By.xpath("//input[@id='email']"));
-	 email_fld.sendKeys(email1);
-	
-	  
-	  WebElement send_password=driver.findElement(By.xpath("//button[@type='submit']"));
-	  send_password.click();
-	  WebElement msg=driver.findElement(By.xpath("//div[@class='alert alert-success']"));
-	  String actualresult=msg.getText();
-	  String expectedresutl="We have e-mailed your password reset link!";
-	  Assert.assertEquals( actualresult, expectedresutl,"incorrect email"); 
+ String email=ExcelUtilityQ.get_String_Data(0, 0, Constants.INVALIDRESETPAGE);
+ LoginPage login=new LoginPage(driver);
+ ResetPage reset=login.Click_Onforgot_password();
+ reset.enter_emailId(email);
+ reset.click_onReset_Button();
+ String actual_result=reset.getError_MessageText(email);
+ String expectederror_msg=ExcelUtilityQ.get_String_Data(1, 0, Constants.INVALIDRESETPAGE);
+ String expected_result=expectederror_msg;
+ Assert.assertEquals(actual_result, expected_result, Messages.RESETFAILED);
+ 
  }
-	}
+}
+		
+	
 

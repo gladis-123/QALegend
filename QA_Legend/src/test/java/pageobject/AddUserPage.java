@@ -13,41 +13,57 @@ public class AddUserPage {
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
+
 	@FindBy(xpath="//input[@id='surname']")
-	WebElement  prefix;
+	WebElement prefix_fld;
 	@FindBy(xpath="//input[@id='first_name']")
-	WebElement fst_name_fld;
+	WebElement firstname_field;
 	@FindBy(xpath="//input[@id='last_name']")
-	WebElement last_name_fld;
+	WebElement lastname_field;
 	@FindBy(xpath="//input[@id='email']")
-	WebElement  email1;
+	WebElement email_field;
 	@FindBy(xpath="//b[@role='presentation']")
 	WebElement role_field;
-	@FindBy (xpath="//input[@id='username']")
-	WebElement  user_name_fld;
+	@FindBy(xpath="//input[@id='username']")
+	WebElement username_field;
 	@FindBy(xpath="//input[@id='password']")
-	WebElement pass_word;
-	@FindBy(xpath="//input[@name='confirm_password']")
-	WebElement confirm_password;
-	@FindBy(xpath="//input[@id='cmmsn_percent']")
-	WebElement percent;
+	WebElement password_field;
+	@FindBy(xpath="//input[@id='confirm_password']")
+	WebElement confirm_passwordfield;
 	@FindBy(xpath="//button[@id='submit_user_button']")
-	WebElement  save;
-	public void prefix_Box()
+	WebElement save_button_field;
+	
+	
+	
+	
+	public void add_userDatas(String fname, String lname, String email, String uname, String passwd, String confirmpasswd )
 	{
-		prefix.sendKeys("Mrs");
+		prefix_fld.sendKeys("Mrs");
+		firstname_field.sendKeys(fname);
+		lastname_field.sendKeys(lname);
+		email_field.sendKeys(email);
+		//PageUtility.select_TextOperation(role_field,"Producer" );
+		role_field.click();
+		username_field.sendKeys(uname);
+		password_field.sendKeys(passwd);
+		confirm_passwordfield.sendKeys(confirmpasswd);
+	}
+	
+	/*public void prefix_Box()
+	{
+		prefix_fld.sendKeys("Mrs");
 	}
 	public void enter_FirstName(String fname)
 	{
-		fst_name_fld.sendKeys(fname);
+		firstname_field.sendKeys(fname);
 	}
 	public void enter_LastName(String lname)
 	{
-		last_name_fld.sendKeys(lname);
+		lastname_field.sendKeys(lname);
 	}
 	public void enter_EmailAddress(String email)
 	{
-		email1.sendKeys(email);
+		email_field.sendKeys(email);
 	}
 	public void role_FieldSelection()
 	{
@@ -57,21 +73,23 @@ public class AddUserPage {
 	}
 	public void enter_UserName(String uname)
 	{
-		user_name_fld.sendKeys(uname);
+		username_field.sendKeys(uname);
 	}
 	public void enter_Password(String passwd)
 	{
-		pass_word.sendKeys(passwd);
+		password_field.sendKeys(passwd);
 	}
 	public void enter_ConfirmPassword(String confirmpasswd)
 	{
-		confirm_password.sendKeys(confirmpasswd);
-	}
-	public UsersPage ClickOn_Save()
+		confirm_passwordfield.sendKeys(confirmpasswd);
+	}*/
+	public UsersPage ClickOn_SaveButton()
 	{
-		save.click();
-		return new UsersPage(driver) ;
+		save_button_field.click();
+		return new UsersPage(driver);
+	
 	}
+}
 
 	
 	
@@ -83,4 +101,4 @@ public class AddUserPage {
 	
 	
 	
-}
+
